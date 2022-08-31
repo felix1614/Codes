@@ -1,0 +1,10 @@
+logging:
+#  log: /home/afnan/logs/
+  final: /home/afnan/LogsCol/
+
+siteEmails: [afnan@elmeasure.com,pooja.mk@elmeasure.com]
+
+mailServerCred: ["elnet@elmeasure.com", "Elm@123*"]
+
+
+fileSize: 0.1

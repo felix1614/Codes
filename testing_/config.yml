@@ -1,0 +1,37 @@
+mqtt_broker:
+  ip_address: 192.168.4.90
+  port: 1883
+  ssl_port: 8883
+  is_ssl: false
+  cert_path: /etc/nginx/certs/ca_bundle.crt
+
+mongo_db:
+  mongo_connection: 192.168.4.90:27017
+  username: theiox
+  password: theioxsrvpwd
+
+environment:
+  mode: "production"
+
+service:
+  license_path: /code/data/licence
+
+kairos_db:
+  url: http://192.168.4.90:18080
+
+duration:
+  timer : 10
+
+timezone:
+  timezone: "Asia/Kolkata"
+
+sms_count :
+  industry_10001_client_1 :
+    start_date_time : 2020-01-02 12:00:00
+    allowed_sms : 10000
+log:
+  file_name: ilens
+  path: logs/
+  level: DEBUG
+  retention: '5 days' # "1 week, 3 days", "2 months"
+  rotation: '5 MB' # "100 MB", "0.5 GB", "1 month 2 weeks", "4 days", "10h", "monthly", "18:00", "sunday", "w0", "monday at 12:00"
