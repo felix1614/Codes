@@ -5,7 +5,6 @@ from pydantic.dataclasses import dataclass
 app = Flask(__name__)
 
 
-
 class MyConfig:
     max_any_str_length = 10
     validate_assignment = True
@@ -21,7 +20,8 @@ class Password(BaseModel):
 
 
 def exceptHandler(exc=None):
-    res = ast.literal_eval(exc.json())
+    # res = ast.literal_eval(exc.json())
+    res = eval(exc.json())
     # res_ = dict()
     # print(res)
     # for i in res:
