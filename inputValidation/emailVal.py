@@ -21,7 +21,8 @@ class Password(BaseModel):
 
 
 def exceptHandler(exc=None):
-    res = ast.literal_eval(exc.json())
+    # res = ast.literal_eval(exc.json())
+    res = eval(exc.json())
     # res_ = dict()
     # print(res)
     # for i in res:
