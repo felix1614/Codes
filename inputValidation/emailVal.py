@@ -1,22 +1,23 @@
-import ast
+# import ast
 from flask import Flask, request, jsonify
-from pydantic import BaseModel
-from pydantic.dataclasses import dataclass
+from pydantic import BaseModel as PydanticBaseModel
+# from pydantic.dataclasses import dataclass
 app = Flask(__name__)
 
 
-class MyConfig:
-    max_any_str_length = 10
-    validate_assignment = True
-    error_msg_templates = {"type_error.integer": f" should be integer",
-                           'value_error.any_str.max_length': 'should not exceeds more than 10 characters'}
+class BaseModel(PydanticBaseModel):
+    class Config:
+        max_any_str_length = 10
+        # validate_assignment = True
+        arbitrary_types_allowed = True
+        error_msg_templates = {"type_error.integer": f" should be integer",
+                               'value_error.any_str.max_length': 'should not exceeds more than 10 characters'}
 
 
-@dataclass(config=MyConfig)
+# @dataclass(config=MyConfig)
 class Password(BaseModel):
     password: int
-    name :str
-
+    name: str
 
 
 def exceptHandler(exc=None):
@@ -33,13 +34,13 @@ def exceptHandler(exc=None):
 @app.route("/test", methods=["POST"])
 def test():
     try:
-        a=request.json
+        a = request.json
         Password(**a)
-    except Exception as e:
-        res=exceptHandler(exc=e)
+    except (ValueError, TypeError) as e:
+        res = exceptHandler(exc=e)
         return jsonify({"message": res, "status": "failed"})
-    return jsonify({"status":"success"})
+    return jsonify({"status": "success"})
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     app.run()
-
