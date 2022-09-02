@@ -31,6 +31,7 @@ Expected output
 ABCDE!!!
 
 """
+"test"
 message = "ACEGI!!!"
 c=""
 for i in range(len(message)):
