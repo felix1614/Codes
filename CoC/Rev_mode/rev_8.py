@@ -32,15 +32,15 @@ d = ""
 
 for i in range(len(s)):
     if i < len(s)-1:
-        if s[i] == s[i+1]:
+        if s[i].isspace():
+            d += " "
+        elif s[i] == s[i+1]:
             c += 1
         else:
-            d += str(c)
-            d += s[i]
+            d += str(c)+s[i]
             c = 1
     else:
-        d += str(c)
-        d += s[i]
+        d += str(c)+s[i]
 print(d)
 # print("".join(list(itertools.chain(*list(zip(d, e))))))
 

@@ -3,7 +3,7 @@
 #CDS="$(echo $USER)"
 #echo "$CDS"
 . /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/CodingManiac/shell_Scripting/Hashing.sh
-#[ ! -d /tmp/ilens/tar/ ] && { echo "inside dir";mkdir -p /tmp/ilens/tar;cp ~/Downloads/releases/alarm_service.tar.gz /tmp/ilens/tar; cp ~/Downloads/releases/meta_services_2.tar.gz /tmp/ilens/tar; }
+[ ! -d /tmp/ilens/tar/ ] && { echo "inside dir";mkdir -p /tmp/ilens/tar;cp ~/Downloads/releases/alarm_service.tar.gz /tmp/ilens/tar; cp ~/Downloads/releases/meta_services_2.tar.gz /tmp/ilens/tar; }
 #~/PycharmProjects/CodingManiac/venv/bin/python ~/PycharmProjects/CodingManiac/dash/dash_4.py "hi"
 
 Hashing /home/afnan/Downloads/releases/meta_services_2.tar.gz meta_services_2 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo 0

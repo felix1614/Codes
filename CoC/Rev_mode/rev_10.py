@@ -36,8 +36,8 @@ c=""
 for i in range(len(message)):
     if message[i].isalpha():
         c += (chr((ord(message[i])-i-65)%26+65))
-    else :
-        c+=message[i]
+    else:
+        c += message[i]
         # c+=chr(i-(ord(message[i])))
 print(c)
 
