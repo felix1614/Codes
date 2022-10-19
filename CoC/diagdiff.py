@@ -4,7 +4,7 @@ def diagonalDifference(arr):
     # print(m.diagonal().sum())
     # print(np.matrix.diagonal(np.fliplr(m)).sum())
 
-    return abs((m.diagonal().sum())-(np.matrix.diagonal(np.fliplr(m))).sum())
+    return abs((m.diagonal().sum_()) - (np.matrix.diagonal(np.fliplr(m))).sum_())
 
 if __name__ == '__main__':
 

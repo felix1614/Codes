@@ -20,7 +20,7 @@ for i in range(2, num):
     n1 = n2
     n2 = n3
     if n3 <= num:
-        s.append(n3)
+        s += n3,
 
 print(s)
 print(num-s[-1])

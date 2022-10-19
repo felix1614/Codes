@@ -2,7 +2,7 @@
 
 file_down(){
   echo "Downloading Hash_codes for $2"
-  wget  -q "https://docs.google.com/spreadsheets/d/$1/export?format=csv&gid=$3" -O /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/CodingManiac/shell_Scripting/Hash_codes.csv
+  wget  -q "https://docs.google.com/spreadsheets/d/$1/export?format=csv&gid=0" -O /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/CodingManiac/shell_Scripting/Hash_codes.csv
   if [ -f /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/CodingManiac/shell_Scripting/Hash_codes.csv ];then echo "Hash_codes downloaded for $2";else echo "error downloading Hash_codes";exit 90;fi
 }
 
@@ -21,7 +21,7 @@ do
     INPUT=Hash_codes.csv
     OLDIFS=$IFS
     IFS=','
-    if [ ! -f $INPUT ];then file_down "$3" "$2" "$4";else rm "$INPUT";file_down "$3" "$2";fi
+    if [ ! -f $INPUT ];then file_down "$3" "$2" ;else rm "$INPUT";file_down "$3" "$2";fi
     while read -r flname release HASHC
     do
       if [ "$flname" = "$2" ] && [ "$x" = "$release" ]

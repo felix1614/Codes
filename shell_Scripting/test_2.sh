@@ -6,7 +6,8 @@
 [ ! -d /tmp/ilens/tar/ ] && { echo "inside dir";mkdir -p /tmp/ilens/tar;cp ~/Downloads/releases/alarm_service.tar.gz /tmp/ilens/tar; cp ~/Downloads/releases/meta_services_2.tar.gz /tmp/ilens/tar; }
 #~/PycharmProjects/CodingManiac/venv/bin/python ~/PycharmProjects/CodingManiac/dash/dash_4.py "hi"
 
-Hashing /home/afnan/Downloads/releases/meta_services_2.tar.gz meta_services_2 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo 0
+Hashing /home/afnan/Downloads/releases/live_processor.tar.gz live_processor 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo
+# tar file path service_name csvID
 #Hashing /home/afnan/Downloads/elmeasure_ui.tar.gz elmeasure_ui 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo 0
 
 
