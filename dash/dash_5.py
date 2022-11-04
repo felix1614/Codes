@@ -1,0 +1,5 @@
+from textwrap import wrap
+
+cd = b"\x00'\x00\x00\x00\x0c\x08\x10\xdc\xbcqg\x00\x04\x00\x012G"
+
+print(wrap(cd.hex(), 4))

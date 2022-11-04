@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "success"
 
 file_down(){
   echo "Downloading Hash_codes for $2"
