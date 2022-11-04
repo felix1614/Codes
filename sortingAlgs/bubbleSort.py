@@ -15,4 +15,3 @@ cd = bubbleSort([2, 5, 1, 3, 6, 3, 0])
 print(cd)
 # ef = list(map(bubbleSort, arrr))
 # print(ef)
-
