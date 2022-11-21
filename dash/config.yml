@@ -1,0 +1,42 @@
+mongo_db:
+  mongo_connection: 192.168.8.135:27018
+  username: theiox
+  password: theioxsrvpwd
+
+kairos_db:
+  url: http://192.168.8.135:18085
+
+mqtt:
+  host: 192.168.8.135
+  port: 1883
+  topic: GW/GPUB/ # for replication 1st packet sends to first subscriber
+  data_acq_topic: /elm/data_acq/data
+
+mqtt_web_socket:
+  host: 192.168.8.135
+  port: 8083
+  ssl : False
+  cert_path : /code/data/
+
+
+log:
+  file_name: ilens
+  path: logs/
+  level: DEBUG
+  handler: rotating_file_handler
+  max_bytes: 10000000
+  backup_count: 10
+  retention: '5 days' # "1 week, 3 days", "2 months"
+  rotation: '5 MB' # "100 MB", "0.5 GB", "1 month 2 weeks", "4 days", "10h", "monthly", "18:00", "sunday", "w0", "monday at 12:00"
+
+
+audit_log_scheduler:
+  mongo_ip: 192.168.8.135
+  mongo_port: 27017
+  auto_report: true
+  schedulerPath: /mnt/containers/ilens/data/kairos_visualizer/data/
+  audit_log: true
+  month: '*'
+  day: '*'
+  hour: '*/1'
+  minute: '0'

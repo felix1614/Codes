@@ -1,57 +1,68 @@
-# # from pymongo import MongoClient
-# import datetime
-# import os
-# import time
-# from sys import argv
-# # mongo_connection = "192.168.4.90:27017"
-# # username = "theiox"
-# # password = "theioxsrvpwd"
-# # db_ = 'ilens_metadata'
-# # mongo = MongoClient(f"mongodb://{username}:{password}@{mongo_connection}/{db_}")
-# # my_db = mongo['ilens_metadata']
-#
-# # for i in my_db.benchmark.find({"client_id": "client_1", "site_id": "industry_10001_client_1", "created_by": "user_10068", "benchmark_id": "benchmark_86"}):
-# # def wri(d):
-# #     with open("/home/afnan/PycharmProjects/CodingManiac/shell_Scripting/hash_codes.csv", "a+") as f:
-# #         f.write(f"{d}\n")
-# #         f.close()
-# # if not os.path.exists("/home/afnan/PycharmProjects/CodingManiac/shell_Scripting/hash_codes.csv"):
-# #     with open("/home/afnan/PycharmProjects/CodingManiac/shell_Scripting/hash_codes.csv", "a+") as f:
-# #         f.write(f"{argv[1]}\n")
-# #         f.close()
-# # wri("alarm_service,x.4.59,d50cf1622b077f4bfae97816fcfa5340d766ee703da7931802009f4702a254af")
-# # wri("meta_service_2,x.0.54,d50cf1622b077f4bfae97816fcfa5340d766ee703da7931802009f4702a254afwew")
-# # wri("meta_services_2,x.4.56,447a368f4c57197e8ed9fbe9f58915c9ff07688cc3e1b203593c03e50e96fb96")
-# # wri("meta_services_2,x.0.45,dasd50cf1622b077f4bfae97816fcfa5340d766ee703da7931802009f4702a")
-# # wri("alarm_service,x.0.65,d50cf1622b077f4bfae97816fcfa5340d766ee703da7931802009f4702a254af")
-#
-# ti= time.time()
-# da = datetime.datetime.fromtimestamp(ti)
-# print(da.strftime("%Y%m%d%H%M%S"))
-# # ti = datetime.datetime.now()
-# # cd =datetime.datetime.strftime(ti, '%d/%m/%y %H:%M:%S')
-# # print(cd, datetime.datetime.strptime(cd, "%S"))
-import pyodbc
+import json
+from itertools import islice
 
-# cnxn_str = ("Driver={ODBC Driver 17 for SQL Server};"
-#             "Server=192.168.4.150;"
-#             "Database=SAP_ELM;"
-#             "UID=sa;"
-#             "PWD=Elnetsrv123*;"
-#             "Trusted_Connection=yes;")
-# cnxn = pyodbc.connect(cnxn_str)
-# cnxn = pyodbc.connect('DRIVER={SQL Server};'
-#                       'SERVER=192.168.4.150;'
-#                       'DATABASE=SAP_ELM;UID=saE;PWD=Elnetsrv123*;')
-# import pyodbc
+from flask import Flask, request, render_template
+from werkzeug.utils import secure_filename
 
-server = '192.168.4.150'
-database = 'SAP_ELM'
-username = 'sa'
-password = 'Elnetsrv123*'
-driver = "/etc/odbcinst.ini"
-
-from sqlalchemy import create_engine
-engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True)
+app = Flask(__name__, template_folder="templates")
 
 
+@app.route("/")
+def home():
+    return render_template("temp.html")
+
+
+@app.route("/test", methods=['GET', 'POST'])
+def tes():
+    # df = request
+    f = request.files.get('file')
+    data = f.read().decode().split("END")
+    splitData = [i.replace("\r\n", "") for i in data if "\r" or "\n" in i]
+    finalOut, loadVal, eventData, instantData, scalar = dict(), dict(), dict(), dict(), dict()
+    tuple(map(lambda x: finalOut.update({x.split(",")[0].lower(): x.split(",")[1:-1] if splitData.index(x) != len(
+        splitData) - 1 else x.split(",")[1:]}), splitData))
+
+    def splitter(arr, size):
+        arr = iter(arr)
+        return iter(lambda: tuple(islice(arr, size)), ())
+
+    for key in finalOut.copy().keys():
+        notMap = ["RS485-Device_Address value".lower(), 'billing data value', 'instant data value',
+                  'block load data value', 'daily load data value', 'billing load data value']
+
+        if "value" in key and "event" not in key and key not in notMap and "scalar" not in key:
+            OBIS = finalOut[key.replace("value", "obis")]
+            keyVal = finalOut[key]
+            finalOut[key] = dict(zip(OBIS, keyVal))
+            del finalOut[key.replace("value", "obis")]
+
+        elif "event" in key and "obis" not in key and "scalar" not in key:
+            data_ = list(splitter(finalOut[key], len(finalOut[key.replace("value", "obis")])))
+            eventData[key] = list(map(lambda x: {"obis": finalOut[key.replace("value", "obis")], "val": x}, data_))
+            del finalOut[key.replace("value", "obis")], finalOut[key]
+
+        elif key in ['billing data value', 'daily load data value', 'block load data value']:
+            load = list(splitter(finalOut[key], len(finalOut[key.replace("value", "obis")])))
+            loadVal[key] = list(map(lambda x: {"obis": finalOut[key.replace("value", "obis")], "val": x}, load))
+            del finalOut[key.replace("value", "obis")], finalOut[key]
+
+        elif key in ['instant data value']:
+            load = list(splitter(finalOut[key], len(finalOut[key.replace("value", "obis")])))
+            instantData[key] = {"obis": finalOut[key.replace("value", "obis")], "val": finalOut[key]}
+            del finalOut[key.replace("value", "obis")], finalOut[key]
+
+        elif "scalar" in key and "obis" in key:
+            OBIS = finalOut[key]
+            keyVal = finalOut[key.replace("obis", "value")]
+            scalar[key] = dict(zip(OBIS, keyVal))
+            del finalOut[key.replace("obis", "value")], finalOut[key]
+
+    mainDict = {"GENERAL": finalOut, "EVENT": eventData, "LOAD": loadVal, "INSTANT": instantData, "SCALAR": scalar}
+    del eventData, loadVal, finalOut, instantData, scalar
+    TEMP = json.dumps(mainDict)
+    print(TEMP)
+    return TEMP
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
