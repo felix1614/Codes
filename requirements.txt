@@ -13,3 +13,15 @@ typing_extensions==4.1.1
 Werkzeug==2.0.3
 zipp==3.6.0
 opcua~=0.98.13
+numpy~=1.19.5
+openpyxl~=3.0.10
+pandas~=1.1.5
+XlsxWriter~=3.0.3
+websockets~=9.1
+requests~=2.27.1
+PyYAML~=6.0
+pymongo~=4.1.1
+tzlocal~=4.2
+pytz~=2022.2.1
+python-dateutil~=2.8.2
+PyJWT==2.4.0
