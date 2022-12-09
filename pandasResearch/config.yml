@@ -1,0 +1,232 @@
+service:
+  kl_url: http://192.168.8.135
+  elm_url: http://192.168.8.135
+  mnt_path: /code/data/
+  name: ilens_elmeasure
+  host: 0.0.0.0
+  port: 8585
+  elm_port: 5005
+  SECRET_KEY: KLKey
+  enable_security: false
+  default_timeout: 90000
+  network_address: eth0
+  disabled_device_group: []
+  license_path: /code/data/license/
+
+api:
+  url: http://127.0.0.1
+
+log:
+  file_name: ilens
+  path: logs/
+  level: DEBUG
+  handler: rotating_file_handler
+  max_bytes: 10000000
+  backup_count: 10
+
+upload_csv:
+  path: logs/UPLOAD
+
+mongo_db:
+  mongo_connection: 192.168.8.135:27018
+  username: theiox
+  password: theioxsrvpwd
+  replica_set_name: null
+
+kairos_db:
+  url: http://192.168.8.135:18085
+
+mssql_data:
+  ip_address: 192.168.4.150
+  user: sa
+  password: Elnetsrv123*
+  db_name: SAP_ELM
+  table_name: Chanel_new
+  dialetic: mssql+pymssql://
+
+csv:
+  path: logs/csv
+metric:
+  name: ilens.live_data.raw
+
+system_login_domain:
+  domain_list: ["knowledgelens.com","elmeasure.com"]
+
+rule_engine:
+  base_rule_url: "http://192.168.4.90:8585"
+  create_immediate_job: "/create/immediate"
+  create_schedule_job: "/create/schedule"
+
+Scheduler_module:
+  base_url: "http://scheduler_engine:9997/create_job"
+
+manual_entry_kairose_tag:
+  category_2: "gateway_0"
+
+scheduler:
+  mongo_ip: 192.168.8.135
+  mongo_port: 27018
+  auto_report: false
+  schedulerPath: /mnt/containers/ilens/data/kairos_visualizer/data/
+
+erp_data:
+  device_instance_id: device_instance_439
+  total_production_tag_id: tag_2746
+
+tms_client_id:
+  client_id: "client_1166"
+
+environment:
+  mode: "production"
+tokens_expiry:
+  access_token_expiry: 5
+  refresh_token_expiry: 1440
+
+sag_swell_interruption:
+  sag_swell_tag: "tag_2332"
+  date_tag: "tag_2327"
+  time_tag: "tag_2328"
+
+plant_wise_energy_report:
+  shift_timings:
+    shifts : 3
+    shift_1 :
+      start_time : '08:00'
+      end_time : '18:00'
+    shift_2:
+      start_time: '18:00'
+      end_time : '21:00'
+    shift_3 :
+      start_time : '21:00'
+      end_time : '08:00'
+  device_groups:
+    incomer_shift_data :
+      incomer : 'device_instance_188'
+    incomer_remaining_data :
+      transformer : 'device_instance_486'
+    distribution_device_groups :
+      Distribution : 'device_instance_499'
+      A/C Load : 'device_group_10022'
+      STP: 'device_instance_10110'
+      DG Supply : 'device_instance_186'
+
+  mail_list : ['ashok@elmeasure.com','ashok.kolluri1998@gmail.com']
+  tags:
+    Wh_rec : 'tag_293'
+    Volts_LN : 'tag_284'
+    VA_Total : 'tag_276'
+    pf : 'tag_272'
+    amps : 'tag_288'
+    Avg_pf :
+      Wh_rec : 'tag_293'
+    THD_Amps_R : 'tag_309'
+    THD_Amps_Y : 'tag_310'
+    THD_Amps_B : 'tag_311'
+    THD_Volts_R : 'tag_306'
+    THD_Volts_Y : 'tag_307'
+    THD_Volts_B : 'tag_308'
+    sag_swell_tag: "tag_2332"
+    date_tag: "tag_2327"
+    time_tag: "tag_2328"
+    run_hour : 'tag_316'
+    water:
+      digital_input_1 : 'tag_2732'
+      digital_input_2 : 'tag_2733'
+      digital_input_3 : 'tag_2734'
+      digital_input_4 : 'tag_2735'
+  dg_run_hours:
+    id : device_instance_186
+    tag_name : 'Load Hrs Rec'
+    tag_id: 'tag_316'
+
+  eb_incomer:
+    tag_id : 'tag_293'
+    device_group_id_list :
+      Second Floor : 'device_instance_506'
+      First Floor : 'device_instance_173'
+      Ground Floor : 'device_instance_165'
+      A/C Load : 'device_group_10022'
+      STP : 'device_instance_10110'
+      Lift : 'device_instance_371'
+      DG kWh : 'device_instance_186'
+
+  water_information:
+    Canteen_digital_input_1 : "device_instance_10097"
+    Gents RR_digital_input_2 : "device_instance_10098"
+    Ladies RR_digital_input_3 : "device_instance_10099"
+    R&D & Admin RR_digital_input_4 : "device_instance_10100"
+
+EGL:
+  incomer_device_group : 'device_group_10043'
+  bescom_power_consumption: 6701572.93
+
+IOCL:
+  devices:
+    Total Units Consumed:
+      From EB: ['device_instance_499','device_instance_10034']
+      From DG: ['device_instance_499','device_instance_170']
+      From Solar: ['device_instance_10034','device_instance_330']
+    Maximum Demand:
+      Maximum Demand: ['device_instance_499']
+    Average Power Factor:
+      Average Power Factor: [ 'device_instance_499' ]
+    Bottling Figures:
+      2 KG Bottling: ['device_instance_188','device_instance_170']
+      5 KG Bottling: ['device_instance_170','device_instance_171']
+      10 KG Bottling: ['device_instance_172','device_instance_173']
+      14.2 KG Bottling: ['device_instance_174','device_instance_315']
+      19 KG Bottling: ['device_instance_330','device_instance_329']
+      47.5 KG Bottling: ['device_instance_174','device_instance_175']
+      425 KG Bottling: ['device_instance_177','device_instance_178']
+    Major Equipments Power Consumption:
+      Screw Air Compressor: ['device_instance_499','device_instance_325']
+      LPG Pump: ['device_instance_499','device_instance_315']
+      LPG Compressor: ['device_instance_499','device_instance_306']
+      Emergency Load: ['device_instance_499']
+  tags:
+    Wh_rec : 'tag_264'
+    MD VA Imp : 'tag_165'
+    VA_Total : 'tag_276'
+
+  bottling_tags:
+    2kg_tag: ['tag_1322','tag_1323']
+    5kg_tag: ['tag_11446','tag_11447']
+    10kg_tag: ['tag_1367','tag_1366']
+    14.2kg_tag : ['tag_265','tag_294']
+    19kg_tag : ['tag_266','tag_293']
+    47.5kg_tag: ['tag_1369','tag_1370']
+    425kg_tag: ['tag_1415','tag_1416']
+  unit_conversion:
+    kWh: 0.001
+    kVa: 0.001
+    MT: 0.001
+  decimal_point:
+    Specific_Energy_Consumption_deci: 7
+DG_R_H:
+  Load_Hrs_Rec: 'tag_10010'
+  amps: 'tag_10011'
+  diesel_cost: 'tag_10002'
+
+shift_tod_energy_report:
+  shifts: ['timeslot_10024','timeslot_10025','timeslot_10026']
+
+rate_limits:
+  api_limit_cat_1: "5 per 5 seconds"
+  api_limit_cat_2: "50 per 5 seconds"
+  api_limit_cat_3: "10 per 5 seconds"
+  api_limit_cat_4: "4 per 10 seconds"
+  api_limit_cat_5: "2 per 10 seconds"
+  api_limit_cat_6: "5 per 10 seconds"
+  api_limit_cat_7: "3 per 10 seconds"
+  api_limit_cat_8: "1 per 30 seconds"
+audit_log_scheduler:
+  mongo_ip: 192.168.8.135
+  mongo_port: 27018
+  auto_report: true
+  schedulerPath: /mnt/containers/ilens/data/kairos_visualizer/data/
+  audit_log: true
+  month: '*'
+  day: '*'
+  hour: '*/1'
+  minute: '0'
+

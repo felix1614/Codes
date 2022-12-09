@@ -118,4 +118,4 @@ graph = {"a": {"b": 10, "c": 3},
          "d": {"e": 7},
          "e": {"d": 9}}
 
-short(graph, "a", "e")
+short(graph, "b", "d")
