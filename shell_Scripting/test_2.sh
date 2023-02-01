@@ -1,19 +1,19 @@
 #!/bin/sh
 #USERNAME="$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"
 #if [ ! -f hashing.sh ];then echo "Hashing.sh not there in /home/$USERNAME/";fi
-hash(){
-echo "hello"
-}
-USERNAME="$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"
-HASHFILE=/home/afnan/PycharmProjects/PersonalActivity/shell_Scripting/Hashing.sh
-if [ ! -f Hashing.sh ];then echo "Hashing.sh file not found in /home/$USERNAME/";else . $HASHFILE;fi
+#hash(){
+#echo "hello"
+#}
+#USERNAME="$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"
+#HASHFILE=/home/afnan/PycharmProjects/PersonalActivity/shell_Scripting/Hashing.sh
+#if [ ! -f Hashing.sh ];then echo "Hashing.sh file not found in /home/$USERNAME/";else . $HASHFILE;fi
 #CDS="$(echo $USER)"
 #echo "$CDS"
-#. /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/CodingManiac/shell_Scripting/Hashing.sh
+. /home/"$(echo "$(echo "$(w -h -s)" | cut -c1-9)" | xargs)"/PycharmProjects/PersonalActivity/shell_Scripting/Hashing.sh
 #[ ! -d /tmp/ilens/tar/ ] && { echo "inside dir";mkdir -p /tmp/ilens/tar;cp ~/Downloads/releases/alarm_service.tar.gz /tmp/ilens/tar; cp ~/Downloads/releases/meta_services_2.tar.gz /tmp/ilens/tar; }
 #~/PycharmProjects/CodingManiac/venv/bin/python ~/PycharmProjects/CodingManiac/dash/dash_4.py "hi"
 
-#Hashing /home/afnan/Downloads/releases/live_processor.tar.gz live_processor 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo
+Hashing /home/afnan/Downloads/releases/recharge_pps.tar.gz recharge_pps 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo
 
 # tar file path service_name csvID
 #Hashing /home/afnan/Downloads/elmeasure_ui.tar.gz elmeasure_ui 1ACz6hoBqhm0AI5IUbzsDw3IwGXCiwB2e-0gQF1BEKjo 0

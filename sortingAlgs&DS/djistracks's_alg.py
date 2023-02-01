@@ -72,50 +72,96 @@ E D 4
 A D
 """
 
+# def short(graph, start, goal):
+#     shortestDist = {}
+#     predessor = {}
+#     unseenNodes = graph
+#     infinity = 999999
+#     path = []
+#     for nodes in unseenNodes:
+#         shortestDist[nodes] = infinity
+#     shortestDist[start] = 0
+#
+#     while unseenNodes:
+#         minNode = None
+#         for node in unseenNodes:
+#             if minNode is None:
+#                 minNode = node
+#             elif shortestDist[node] < shortestDist[minNode]:
+#                 minNode = node
+#         for child, weight in graph[minNode].items():
+#             if weight + shortestDist[minNode] < shortestDist[child]:
+#                 shortestDist[child] = weight + shortestDist[minNode]
+#                 predessor[child] = minNode
+#         unseenNodes.pop(minNode)
+#
+#     currentNode = goal
+#     while currentNode != start:
+#         try:
+#             path.insert(0, currentNode)
+#             currentNode = predessor[currentNode]
+#
+#         except KeyError:
+#             print("path unreachable")
+#             break
+#
+#     path.insert(0, start)
+#     if shortestDist[goal] != infinity:
+#         print(f"weight: {str(shortestDist[goal])}")
+#         print(f"path: {'->'.join(path)}")
+#
+#
+# graph = {"a": {"b": 10, "c": 3},
+#          "b": {"c": 1, "d": 2},
+#          "c": {"b": 4, "d": 8, "e": 2},
+#          "d": {"e": 7},
+#          "e": {"d": 9}}
+#
+# short(graph, "b", "d")
 
-def short(graph, start, goal):
-    shortestDist = {}
-    predessor = {}
-    unseenNodes = graph
-    infinity = 999999
+
+"""
+    OPTIMISED DIJKSTRA"S ALG
+"""
+
+
+def shortest_path(graph, start, goal):
+    import queue
+    dist = {node: float('inf') if node != start else 0 for node in graph}
+    predecessor = {node: None for node in graph}
+    q = queue.PriorityQueue()
+    q.put((0, start))
     path = []
-    for nodes in unseenNodes:
-        shortestDist[nodes] = infinity
-    shortestDist[start] = 0
 
-    while unseenNodes:
-        minNode = None
-        for node in unseenNodes:
-            if minNode is None:
-                minNode = node
-            elif shortestDist[node] < shortestDist[minNode]:
-                minNode = node
-        for child, weight in graph[minNode].items():
-            if weight + shortestDist[minNode] < shortestDist[child]:
-                shortestDist[child] = weight + shortestDist[minNode]
-                predessor[child] = minNode
-        unseenNodes.pop(minNode)
-
-    currentNode = goal
-    while currentNode != start:
-        try:
-            path.insert(0, currentNode)
-            currentNode = predessor[currentNode]
-
-        except KeyError:
-            print("path unreachable")
+    while not q.empty():
+        cur_dist, cur_node = q.get()
+        if cur_node == goal:
             break
+        for child, weight in graph[cur_node].items():
+            if dist[cur_node] + weight < dist[child]:
+                dist[child] = dist[cur_node] + weight
+                predecessor[child] = cur_node
+                q.put((dist[child], child))
 
-    path.insert(0, start)
-    if shortestDist[goal] != infinity:
-        print(f"weight: {str(shortestDist[goal])}")
-        print(f"path: {'->'.join(path)}")
+    if dist[goal] != float('inf'):
+        current = goal
+        while current != start:
+            if current not in predecessor:
+                print("Path not found")
+                return
+            path.append(current)
+            current = predecessor[current]
+        path.append(start)
+        print(f"Shortest Path: {' -> '.join(path[::-1])}")
+        print(f"Weight: {dist[goal]}")
+    else:
+        print("Path not found")
 
 
-graph = {"a": {"b": 10, "c": 3},
-         "b": {"c": 1, "d": 2},
-         "c": {"b": 4, "d": 8, "e": 2},
-         "d": {"e": 7},
-         "e": {"d": 9}}
+graph_ = {"a": {"b": 10, "c": 3},
+          "b": {"c": 1, "d": 2},
+          "c": {"b": 4, "d": 8, "e": 2},
+          "d": {"e": 7},
+          "e": {"d": 7}}
 
-short(graph, "b", "d")
+shortest_path(graph_, "a", "d")

@@ -1,0 +1,1 @@
+1. next(iter(())) ==> to break in list comprehension

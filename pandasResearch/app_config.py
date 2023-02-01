@@ -132,5 +132,6 @@ class AppConfig:
 
     def get_api_limits(self):
         return self.cfg['rate_limits']
+
     def get_audit_log_schedule(self):
         return self.cfg['audit_log_scheduler']
